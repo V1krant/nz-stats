@@ -1,13 +1,14 @@
 const express = require('express')
 const path = require('path')
+// require('dotenv').config({silent: true})
 
-const fruitRoutes = require('./routes/fruits')
+const dataRoutes = require('./routes/getDataAPI')
 
 const server = express()
 
 server.use(express.json())
 server.use(express.static(path.join(__dirname, 'public')))
 
-server.use('/api/v1/fruits', fruitRoutes)
+server.use('/api/v1/data', dataRoutes)
 
 module.exports = server

@@ -18,7 +18,7 @@ function App() {
 
   useEffect(() => {
   dispatch(checkData())
-  if (databaseState === false) {
+  if (databaseState === true) {
     setDatabase('Loading')
 } else {
   setDatabase('')
@@ -45,7 +45,7 @@ function App() {
       <div style={{textAlign: 'center', margin: "auto"}}>
       <h1>{database}</h1>
       </div>
-      <div style={{ width: 1200, height: 1200, margin: "auto", paddingLeft: "35px" }}>
+      <div style={{ width: 1400, height: 1200, margin: "auto", paddingLeft: "35px" }}>
         {graph}
       </div>
     </>

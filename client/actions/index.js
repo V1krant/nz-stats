@@ -26,18 +26,24 @@ export function fetchData(region) {
   }
 }
 
+export function callFillAPI() {
+ return fillDatabase()
+}
+
 export function checkData() {
   return (dispatch) => {
      return checkDatabase()
      .then((response) => {
-       console.log(response)
-       if (response !== 'Database is populated') {
-        dispatch(setDatabaseState(false))
-        fillDatabase()
+      return response
+    })
+    .then((response) => {
+      if (response !== 'Database is populated') {
+      callFillAPI().then(() => {
+        location.reload()
+       })
+      } else {
+      dispatch(setDatabaseState(false))
       }
-     })
-    .then(() => {
-      dispatch(setDatabaseState(true))
     })
   }
 }

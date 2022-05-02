@@ -1,6 +1,6 @@
 import { SET_DATABASE } from "../actions";
 
-const initialState = null
+const initialState = true
 
 export default function reducer (state = initialState, action) {
   const { type, payload } = action

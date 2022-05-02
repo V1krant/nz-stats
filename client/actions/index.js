@@ -1,19 +1,43 @@
-import { getFruits } from '../apis/fruits'
+import { getData, fillDatabase, checkDatabase } from '../apis/data'
 
-export const SET_FRUITS = 'SET_FRUITS'
+export const SET_DATA = 'SET_DATA'
+export const SET_DATABASE = 'SET_DATABASE'
 
-export function setFruits(fruits) {
+export function setData(regionData) {
   return {
-    type: SET_FRUITS,
-    payload: fruits,
+    type: SET_DATA,
+    payload: regionData,
   }
 }
 
-export function fetchFruits() {
+export function setDatabaseState (state) {
+  return {
+    type: SET_DATABASE,
+    payload: state
+  }
+}
+
+export function fetchData(region) {
   return (dispatch) => {
-    return getFruits().then((fruits) => {
-      dispatch(setFruits(fruits))
+    return getData(region).then((response) => {
+      dispatch(setData(response))
       return null
+    })
+  }
+}
+
+export function checkData() {
+  return (dispatch) => {
+     return checkDatabase()
+     .then((response) => {
+       console.log(response)
+       if (response !== 'Database is populated') {
+        dispatch(setDatabaseState(false))
+        fillDatabase()
+      }
+     })
+    .then(() => {
+      dispatch(setDatabaseState(true))
     })
   }
 }

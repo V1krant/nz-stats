@@ -1,8 +1,12 @@
 const connection = require('./connection')
 
-function getFruits (db = connection) {
-  return db('employed-people').where('region', 'Auckland Region')
+function getRegionByID (region, db = connection) {
+ return db('employed-people').where('region', region)
 }
+
+function checkDatabase (db = connection) {
+  return db('employed-people').where('region', 'Auckland Region')
+ }
 
 async function addData (data, db = connection) {
   let newData = await data.filter((element) => {
@@ -18,6 +22,7 @@ async function addData (data, db = connection) {
 
 
 module.exports = {
-  getFruits,
+  getRegionByID,
+  checkDatabase,
   addData
 }

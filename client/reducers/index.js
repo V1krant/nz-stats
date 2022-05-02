@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux'
 
-import fruits from './fruits'
+import regionData from './regionData'
+import databaseState from './setDatabase'
 
 export default combineReducers({
-  fruits
+  regionData,
+  databaseState
 })

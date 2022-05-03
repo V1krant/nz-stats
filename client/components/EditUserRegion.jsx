@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import {editData, fetchUserNames} from '../actions'
+import { editData, fetchUserNames } from '../actions'
 
 export default function AddUserRegion() {
   const [formData, setFormData] = useState('');
@@ -18,7 +18,7 @@ export default function AddUserRegion() {
   function handleSubmit(e) {
     e.preventDefault()
     setButtonState(true)
-    dispatch(editData({name: selectData, newName: formData}))
+    dispatch(editData({ name: selectData, newName: formData }))
   }
 
   function handleText(e) {
@@ -47,7 +47,7 @@ export default function AddUserRegion() {
       </Form.Text>
       <br></br>
       <br></br>
-      <input type="submit" onClick={handleSubmit} value="Submit" disabled={buttonState}/>
+      <input type="submit" onClick={handleSubmit} value="Submit" disabled={buttonState} />
     </>
   )
 }

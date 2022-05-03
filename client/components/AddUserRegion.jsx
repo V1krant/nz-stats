@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import {insertData} from '../actions'
+import { insertData } from '../actions'
 
 export default function AddUserRegion() {
   const regions = ['Auckland Region', 'Bay of Plenty Region', 'Canterbury Region', 'Gisborne Region', "Hawke's Bay Region", "Manawatu-Whanganui Region", 'Northland Region', 'Otago Region', 'Southland Region', 'Taranaki Region', 'Waikato Region', 'Tasman Region', 'Wellington Region', 'West Coast Region', 'Marlborough Region']
@@ -19,7 +19,7 @@ export default function AddUserRegion() {
   function handleSubmit(e) {
     e.preventDefault()
     setButtonState(true)
-    dispatch(insertData({name: formData, region: selectData}))
+    dispatch(insertData({ name: formData, region: selectData }))
   }
 
   function handleText(e) {
@@ -44,11 +44,11 @@ export default function AddUserRegion() {
         onChange={handleText}
       />
       <Form.Text className="text-muted">
-      If your proud of your region you could always put your name in here.
+        If your proud of your region you could always put your name in here.
       </Form.Text>
       <br></br>
       <br></br>
-      <input type="submit" onClick={handleSubmit} value="Submit" disabled={buttonState}/>
+      <input type="submit" onClick={handleSubmit} value="Submit" disabled={buttonState} />
     </>
   )
 }

@@ -35,12 +35,12 @@ function App() {
     setGraph(<Graph />)
   }
 
-  function handleAddUserClick () {
+  function handleAddUserClick() {
     setGraph(null)
     setUserInput(<AddUserRegion />)
   }
 
-  function handleEditUserClick () {
+  function handleEditUserClick() {
     setGraph(null)
     setUserInput(null)
     setUserInput(<EditUserRegion />)
@@ -49,7 +49,7 @@ function App() {
 
   return (
     <>
-      <div style={{ margin: "15px"}}>
+      <div style={{ margin: "15px" }}>
         <DropdownButton id="dropdown-item-button" autoClose="outside" title="Menu" disable={databaseState}>
           <Dropdown.ItemText>Regional bar graphs:</Dropdown.ItemText>
           <Dropdown.Divider />
@@ -69,7 +69,7 @@ function App() {
       <div style={{ width: 1400, height: 1200, margin: "auto", paddingLeft: "35px" }}>
         {graph}
         <div style={{ width: 500, height: 500, margin: "auto" }}>
-        <p style={{textAlign: 'center'}}>{userInput}</p>
+          <p style={{ textAlign: 'center' }}>{userInput}</p>
         </div>
       </div>
     </>

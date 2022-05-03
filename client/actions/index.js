@@ -62,6 +62,7 @@ export function insertData (data) {
     return addUserRegion(data)
     .then((response) => {
       dispatch(setDatabaseState(false))
+      location.reload()
      return response
    })
  }

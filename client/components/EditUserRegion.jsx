@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import {insertData} from '../actions'
+import { useDispatch, useSelector } from "react-redux";
+import {editData, fetchUserNames} from '../actions'
 
 export default function AddUserRegion() {
-  const regions = ['Auckland Region', 'Bay of Plenty Region', 'Canterbury Region', 'Gisborne Region', "Hawke's Bay Region", "Manawatu-Whanganui Region", 'Northland Region', 'Otago Region', 'Southland Region', 'Taranaki Region', 'Waikato Region', 'Tasman Region', 'Wellington Region', 'West Coast Region', 'Marlborough Region']
   const [formData, setFormData] = useState('');
   const [selectData, setSelectData] = useState('');
   const [buttonState, setButtonState] = useState(false);
   const dispatch = useDispatch()
-
+  const userData = useSelector(state => state.getUserNames)
 
   function handleSelect(e) {
     e.preventDefault()
@@ -19,7 +18,7 @@ export default function AddUserRegion() {
   function handleSubmit(e) {
     e.preventDefault()
     setButtonState(true)
-    dispatch(insertData({name: formData, region: selectData}))
+    dispatch(editData({name: selectData, newName: formData}))
   }
 
   function handleText(e) {
@@ -29,10 +28,10 @@ export default function AddUserRegion() {
 
   return (
     <>
-      <Form.Select aria-label="region drop down" size='sm' value={selectData} onChange={handleSelect}>
-        <option>Select region</option>
-        {regions.map((element, i) => {
-          return <option key={i}>{element}</option>
+      <Form.Select aria-label="names of users" size='sm' value={selectData} onChange={handleSelect}>
+        <option>Labels</option>
+        {userData.map((element, i) => {
+          return <option key={i}>{element.name}</option>
         })}
       </Form.Select>
       <Form.Label htmlFor="inputLabel">Graph Label</Form.Label>
@@ -44,7 +43,7 @@ export default function AddUserRegion() {
         onChange={handleText}
       />
       <Form.Text className="text-muted">
-      If your proud of your region you could always put your name in here.
+        new label name
       </Form.Text>
       <br></br>
       <br></br>

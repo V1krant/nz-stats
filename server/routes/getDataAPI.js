@@ -30,6 +30,18 @@ router.get ('/getdata', (req, res) => {
     })
 })
 
+router.post('/insertdata', (req, res) => {
+const data = req.body
+  db.insertData(data)
+    .then(results => {
+      res.json(results)
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(500).json({ message: 'Something went wrong' })
+    })
+})
+
 
 router.get('/checkdata', (req, res) => {
   db.checkDatabase()
@@ -41,6 +53,29 @@ router.get('/checkdata', (req, res) => {
       res.status(500).json({ message: 'Something went wrong' })
     })
 })
+
+router.post('/editdata', (req, res) => {
+  const data = req.body
+    db.editData(data)
+      .then(results => {
+        res.json(results)
+      })
+      .catch(err => {
+        console.log(err)
+        res.status(500).json({ message: 'Something went wrong' })
+      })
+  })
+
+  router.get('/getusernames', (req, res) => {
+      db.getUserNames()
+        .then(results => {
+          res.json(results)
+        })
+        .catch(err => {
+          console.log(err)
+          res.status(500).json({ message: 'Something went wrong' })
+        })
+    })
 
 router.get('/:id', (req, res) => {
   db.getRegionByID(req.params.id)

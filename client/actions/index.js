@@ -1,7 +1,8 @@
-import { getData, fillDatabase, checkDatabase } from '../apis/data'
+import { getData, fillDatabase, checkDatabase, addUserRegion, editUser, getUserNames } from '../apis/data'
 
 export const SET_DATA = 'SET_DATA'
 export const SET_DATABASE = 'SET_DATABASE'
+export const SET_NAMES = 'SET_NAMES'
 
 export function setData(regionData) {
   return {
@@ -13,6 +14,13 @@ export function setData(regionData) {
 export function setDatabaseState (state) {
   return {
     type: SET_DATABASE,
+    payload: state
+  }
+}
+
+export function setNames (state) {
+  return {
+    type: SET_NAMES,
     payload: state
   }
 }
@@ -46,4 +54,40 @@ export function checkData() {
       }
     })
   }
+}
+
+export function insertData (data) {
+  return (dispatch) => {
+    dispatch(setDatabaseState(true))
+    return addUserRegion(data)
+    .then((response) => {
+      dispatch(setDatabaseState(false))
+     return response
+   })
+ }
+}
+
+export function fetchUserNames () {
+    return (dispatch) => {
+      dispatch(setDatabaseState(true))
+      return getUserNames()
+      .then((response) => {
+        dispatch(setNames(response.body))
+        dispatch(setDatabaseState(false))
+       return response
+     })
+   }
+}
+
+
+export function editData (data) {
+  return (dispatch) => {
+    dispatch(setDatabaseState(true))
+    return editUser(data)
+    .then((response) => {
+      dispatch(setDatabaseState(false))
+      location.reload()
+     return response
+   })
+ }
 }

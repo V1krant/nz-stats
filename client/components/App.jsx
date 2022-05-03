@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Graph from './Graph'
-import { fetchData, setData, checkData } from '../actions'
+import { fetchData, setData, checkData, fetchUserNames } from '../actions'
 import { Dropdown, Button, ButtonGroup, SplitButton, DropdownButton, Navbar, Container, Nav, NavDropdown } from 'react-bootstrap'
 import LoadingSpinner from './LoadingSpinner'
 import AddUserRegion from './AddUserRegion'
+import EditUserRegion from './EditUserRegion'
 
 function App() {
   const regions = ['Auckland Region', 'Bay of Plenty Region', 'Canterbury Region', 'Gisborne Region', "Hawke's Bay Region", "Manawatu-Whanganui Region", 'Northland Region', 'Otago Region', 'Southland Region', 'Taranaki Region', 'Waikato Region', 'Tasman Region', 'Wellington Region', 'West Coast Region', 'Marlborough Region']
@@ -16,6 +17,7 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchData('Auckland Region'))
+    dispatch(fetchUserNames())
   }, [])
 
   useEffect(() => {
@@ -29,7 +31,7 @@ function App() {
 
   function handleClick(event) {
     dispatch(fetchData(event.target.outerText))
-    setUserInput()
+    setUserInput(null)
     setGraph(<Graph />)
   }
 
@@ -38,6 +40,11 @@ function App() {
     setUserInput(<AddUserRegion />)
   }
 
+  function handleEditUserClick () {
+    setGraph(null)
+    setUserInput(null)
+    setUserInput(<EditUserRegion />)
+  }
 
 
   return (
@@ -50,9 +57,10 @@ function App() {
             return <div id={element} key={i}><Dropdown.Item as="button" onClick={handleClick}>{element}</Dropdown.Item>
               <Dropdown.Divider /></div>
           })}
-          <Dropdown.ItemText>Add a userprofile:</Dropdown.ItemText>
+          <Dropdown.ItemText>Userprofile settings:</Dropdown.ItemText>
           <Dropdown.Divider />
           <Dropdown.Item as="button" onClick={handleAddUserClick}>Add</Dropdown.Item>
+          <Dropdown.Item as="button" onClick={handleEditUserClick}>Edit</Dropdown.Item>
         </DropdownButton>
       </div>
       <div style={{ textAlign: 'center', margin: "auto" }}>
@@ -60,7 +68,9 @@ function App() {
       </div>
       <div style={{ width: 1400, height: 1200, margin: "auto", paddingLeft: "35px" }}>
         {graph}
+        <div style={{ width: 500, height: 500, margin: "auto" }}>
         <p style={{textAlign: 'center'}}>{userInput}</p>
+        </div>
       </div>
     </>
   )

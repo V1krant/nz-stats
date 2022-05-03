@@ -23,3 +23,15 @@ export function checkDatabase() {
       }
     })
 }
+
+export function addUserRegion (data) {
+  return request.post(rootUrl + '/insertdata').send(data)
+}
+
+export function getUserNames () {
+  return request.get(rootUrl + '/getusernames')
+}
+
+export function editUser (data) {
+  return request.post(rootUrl + '/editdata').send(data)
+}

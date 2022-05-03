@@ -20,11 +20,24 @@ async function addData (data, db = connection) {
    await db('employed-people').insert(newArray)
 }
 
+function insertData (data, db = connection) {
+  return db('users').insert({name: data.name, region: data.region})
+}
 
+function editData (data, db = connection) {
+  return db('users').where({name: data.name}).update({name: data.newName})
+}
+
+function getUserNames (db = connection) {
+  return db('users').select('name')
+}
 
 
 module.exports = {
   getRegionByID,
   checkDatabase,
-  addData
+  addData,
+  insertData,
+  editData,
+  getUserNames
 }

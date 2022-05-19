@@ -16,10 +16,10 @@ export function fillDatabase() {
 export function checkDatabase() {
   return request.get(rootUrl + '/checkdata')
     .then(res => {
-      if (res.body.length === 0) {
-        return null
+      if (res.body === false) {
+        return false
       } else {
-      return 'Database is populated'
+      return true
       }
     })
 }

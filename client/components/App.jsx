@@ -21,12 +21,16 @@ function App() {
   }, [])
 
   useEffect(() => {
+  const isLoaded = JSON.parse(localStorage.getItem('DBloaded'))
+  if (isLoaded === null) {
+    localStorage.setItem('DBloaded', JSON.stringify(true))
     dispatch(checkData())
-    if (databaseState === true) {
-      setDatabase(<LoadingSpinner />)
-    } else {
-      setDatabase(null)
-    }
+  }
+  if (databaseState === true) {
+    setDatabase(<LoadingSpinner />)
+  } else {
+    setDatabase(null)
+  }
   }, [databaseState])
 
   function handleClick(event) {
@@ -50,7 +54,7 @@ function App() {
   return (
     <>
       <div style={{ margin: "15px" }}>
-        <DropdownButton id="dropdown-item-button" autoClose="outside" title="Menu" disable={databaseState}>
+        <DropdownButton id="dropdown-item-button" autoClose="outside" title="Menu" disabled={databaseState}>
           <Dropdown.ItemText>Regional bar graphs:</Dropdown.ItemText>
           <Dropdown.Divider />
           {regions.map((element, i) => {

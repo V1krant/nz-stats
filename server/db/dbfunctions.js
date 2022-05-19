@@ -4,8 +4,12 @@ function getRegionByID (region, db = connection) {
  return db('employed-people').where('region', region)
 }
 
-function checkDatabase (db = connection) {
-  return db('employed-people').where('region', 'Auckland Region')
+async function checkDatabase (db = connection) {
+  const check = await db('employed-people').where('region', 'Auckland Region')
+  if (check.length === 0) {
+    return false
+  }
+  return true
  }
 
 async function addData (data, db = connection) {
